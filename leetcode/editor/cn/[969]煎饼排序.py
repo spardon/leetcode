@@ -41,11 +41,24 @@
 
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
-    def pancakeSort(self, A: List[int]) -> List[int]:
+    def pancakeSort(self, A):
         res = []
-        while True:
-            maxNum = max(A)
-            res.append(max([i for i, v in A]))
+        n = len(A)
+        while n:
+            # 这道题有个条件是  n >= A 中的任何一个元素
+            idx = A.index(n)
+            res.append(idx + 1)
+            A = A[:idx+1][::-1] + A[idx+1:]
+            res.append(n)
+            A = A[:n][::-1] + A[n:]
+            n -= 1
+
+        return res
+
+
+if __name__ == "__main__":
+    s = Solution()
+    print(s.pancakeSort([3, 2, 4, 1]))
 
 
 
